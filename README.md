@@ -16,7 +16,7 @@ cpu: i5 6300HQ
 
 ### 本机型安装的前期准备：
 
-1. ### [参考文章1](https://github.com/tanido/dell-inspiron-7559-i5-mojave)
+1. [参考文章1](https://github.com/tanido/dell-inspiron-7559-i5-mojave)
 
 2. [参考文章2](https://www.tonymacx86.com/threads/guide-booting-the-os-x-installer-on-laptops-with-clover.148093/)
 
