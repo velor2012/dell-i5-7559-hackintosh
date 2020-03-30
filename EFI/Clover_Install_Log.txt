@@ -1,0 +1,79 @@
+
+Clover EFI installer log - Wed Mar 25 17:13:11 CST 2020
+Installer version: v2.5k r5098 EFI bootloader
+======================================================
+/dev/disk0 (internal, physical):
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:      GUID_partition_scheme                        *128.0 GB   disk0
+   1:           Windows Recovery                         313.5 MB   disk0s1
+   2:                        EFI                         346.0 MB   disk0s2
+   3:         Microsoft Reserved                         16.8 MB    disk0s3
+   4:                 Apple_APFS Container disk1         127.4 GB   disk0s4
+
+/dev/disk1 (synthesized):
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:      APFS Container Scheme -                      +127.4 GB   disk1
+                                 Physical Store disk0s4
+   1:                APFS Volume Preboot                 45.8 MB    disk1s2
+   2:                APFS Volume Recovery                1.0 GB     disk1s3
+   3:                APFS Volume VM                      1.1 MB     disk1s4
+   4:                APFS Volume 未命名                  48.2 GB    disk1s5
+
+/dev/disk2 (internal, physical):
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:      GUID_partition_scheme                        *500.1 GB   disk2
+   1:                 Apple_APFS Container disk3         423.4 GB   disk2s1
+   2:                 Apple_APFS Container disk4         76.1 GB    disk2s2
+   3:                        EFI 新加卷                  500.2 MB   disk2s3
+
+/dev/disk3 (synthesized):
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:      APFS Container Scheme -                      +423.4 GB   disk3
+                                 Physical Store disk2s1
+   1:                APFS Volume store                   1.0 MB     disk3s1
+
+/dev/disk4 (synthesized):
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:      APFS Container Scheme -                      +76.1 GB    disk4
+                                 Physical Store disk2s2
+   1:                APFS Volume other                   51.1 GB    disk4s1
+   2:                APFS Volume Preboot                 28.7 KB    disk4s2
+   3:                APFS Volume Recovery                20.5 KB    disk4s3
+   4:                APFS Volume VM                      6.4 GB     disk4s4
+
+/dev/disk5 (external, physical):
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:      GUID_partition_scheme                        *31.0 GB    disk5
+   1:                        EFI EFI                     209.7 MB   disk5s1
+   2:                  Apple_HFS Install macOS Mojave    30.7 GB    disk5s2
+
+======================================================
+Backing up EFI files
+
+No Active Partition
+
+Stage 0 - Writing boot0af to /dev/rdisk5
+dd if=/dev/rdisk5 count=1 bs=512 of=/tmp/origMBR
+cp /tmp/origMBR /tmp/newMBR
+dd if=/Volumes/Install macOS Mojave/usr/standalone/i386/boot0af of=/tmp/newMBR bs=440 count=1 conv=notrunc
+fdisk -f /tmp/newMBR -u -y /dev/rdisk5
+
+Stage 1 - Writing boot1f32 to /dev/rdisk5s1
+dd if=/dev/rdisk5s1 count=1 bs=512 of=/tmp/origbs
+boot volume format is FAT32
+cp /tmp/boot1f32 /tmp/newbs
+dd if=/tmp/origbs of=/tmp/newbs skip=3 seek=3 bs=1 count=87 conv=notrunc
+dd if=/tmp/newbs of=/dev/rdisk5s1
+
+Stage 2 - Written boot7 (x64) to /Volumes/ESP/boot
+======================================================
+Installing RC Scripts
+
+Installing RC scripts on target volume '/Volumes/Install macOS Mojave'
+
+
+Theme 'Clovy' (defined in config.plist) not found !
+Using default theme 'cesium'
+======================================================
+=========== Clover EFI Installation Finish ===========
+======================================================
