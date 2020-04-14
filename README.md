@@ -16,15 +16,17 @@ cpu: i5 6300HQ
 
 ### 本机型安装的前期准备：
 
-1. [参考文章1](https://github.com/tanido/dell-inspiron-7559-i5-mojave)
+1. [参考文章1 ]([https://github.com/tanido/dell-inspiron-7559-i5-mojave](https://github.com/tanido/dell-inspiron-7559-i5-mojave)
 
 2. [参考文章2](https://www.tonymacx86.com/threads/guide-booting-the-os-x-installer-on-laptops-with-clover.148093/)
 
 3. [参考文章3](https://www.cnblogs.com/katachi/p/12147613.html)
 
-### 完善系统：[https://github.com/fengwenhua/dell-7559-hackintosh](https://github.com/fengwenhua/dell-7559-hackintosh)
+### 完善系统：
+[https://github.com/fengwenhua/dell-7559-hackintosh](https://github.com/fengwenhua/dell-7559-hackintosh)
 
-### uifi通用安装参考:[https://www.bilibili.com/video/BV1fE411W7ei?from=search&seid=12025285269635744764](https://www.bilibili.com/video/BV1fE411W7ei?from=search&seid=12025285269635744764)
+### uifi通用安装参考:
+[https://www.bilibili.com/video/BV1fE411W7ei?from=search&seid=12025285269635744764](https://www.bilibili.com/video/BV1fE411W7ei?from=search&seid=12025285269635744764)
 
 ## 基础知识
 
@@ -50,7 +52,7 @@ diskutil list
 
     查看u盘所在分区，比如下图：
 
-![](https://s1.ax1x.com/2020/03/29/GZqSk8.png)
+![main-01fe33a0-775a-11ea-84b9-99ce09a6fbba.png](https://cdn.jsdelivr.net/gh/velor2012/imageHosting/blog/5e81e03a90c1201385034820/main-01fe33a0-775a-11ea-84b9-99ce09a6fbba.png)
 
     我的u盘位置为/dev/disk5,**备份**内部文件，然后执行命令：
 
@@ -70,13 +72,11 @@ sudo /Applications/Install\ macOS\ Mojave.app/Contents/Resources/createinstallme
 
     打开安装，安装位置选择u盘，配置如下
 
-![](https://s1.ax1x.com/2020/03/29/GZO1dx.png)
+![main-1b8abaa0-775a-11ea-84b9-99ce09a6fbba.png](https://cdn.jsdelivr.net/gh/velor2012/imageHosting/blog/5e81e03a90c1201385034820/main-1b8abaa0-775a-11ea-84b9-99ce09a6fbba.png)
 
     红色部分需要照着勾，其他默认就好，如果需要安装到机械盘，需要把RC脚本的选项也勾上，详见参考文章1，2.
 
     安装完成后需要把事先找好的efi文件夹中的clover文件夹放进去替换，除了CLOVERX64.efi保留之外都替换掉。如果没有efi的话，应该可以找把其它机型的efi文件夹下的这几个文件夹替换过来
-
-![](https://s1.ax1x.com/2020/03/29/GZOxTx.png)
 
     这几个文件主要关系到能不能引导u盘并且让clover识别u盘内的，macos安装镜像等等，应该是和机型无关的。
 
@@ -92,11 +92,11 @@ sudo /Applications/Install\ macOS\ Mojave.app/Contents/Resources/createinstallme
 
     在macos系统下，用clover configurator挂载efi分区，如图
 
-![](https://s1.ax1x.com/2020/03/29/GZvWOH.png)
+![main-72143a10-7762-11ea-b9f2-69c92269ffb0.png](https://cdn.jsdelivr.net/gh/velor2012/imageHosting/blog/5e81e03a90c1201385034820/main-72143a10-7762-11ea-b9f2-69c92269ffb0.png)
 
-，把原来的的efi文件夹**备份**(非常重要)一下，删除efi分区的内容。然后跟虚拟机下用clover安装引导一样，去github下载clover，安装到系统盘，把备份的efi文件夹中的Microsoft复制到efi分区的efi文件夹下，如图
+	，把原来的的efi文件夹**备份**(非常重要)一下，删除efi分区的内容。然后跟虚拟机下用clover安装引导一样，去github下载clover，安装到系统盘，把备份的efi文件夹中的Microsoft复制到efi分区的efi文件夹下，如图
 
-![](https://s1.ax1x.com/2020/03/29/GZx9hV.png)
+![main-87d190a0-7762-11ea-b9f2-69c92269ffb0.png](https://cdn.jsdelivr.net/gh/velor2012/imageHosting/blog/5e81e03a90c1201385034820/main-87d190a0-7762-11ea-b9f2-69c92269ffb0.png)
 
     重启用legacy模式选择对应的启动盘，应该就能看到clover启动界面了，其中应该包含macos，macos recovery和windows
 
@@ -114,7 +114,7 @@ sudo /Applications/Install\ macOS\ Mojave.app/Contents/Resources/createinstallme
 
 2. 屏闪，这个问题比触控板问题还恶心，按照网上的教程装完系统后发现，只要我把屏幕观赏，再唤醒就会不定时屏闪，就是屏幕突然黑了然后又亮起来那种感觉，嗯...可以试试把灯关了然后马上打开，差不多就是那种感觉。直接说解决办法，用clover configurator加载clover下的config.plist，把显卡设置里的`ig-platform-id`改成[这篇文章](https://blog.daliansky.net/Intel-core-display-platformID-finishing.html)中你的独显对应的型号，一般有很多个，只要独显是对的，一个个试，有的会直接开不了机，用u盘引导接着试,如图
    
-   ![](https://s1.ax1x.com/2020/03/30/GepyHH.png)
+   ![main-9f4f0dc0-7762-11ea-b9f2-69c92269ffb0.png](https://cdn.jsdelivr.net/gh/velor2012/imageHosting/blog/5e81e03a90c1201385034820/main-9f4f0dc0-7762-11ea-b9f2-69c92269ffb0.png)
 
     我的原来是0x191B0000改成图中这个就没有屏闪了，改成0x193B0005也可以。
 
@@ -125,46 +125,45 @@ sudo /Applications/Install\ macOS\ Mojave.app/Contents/Resources/createinstallme
 ## 尚存问题
 
 1. 耳机有时候会没有声音，需要重启一下。
-
 2. 耳机休眠之后需要重新插拔，不然没声音。
+3. 有时候启动到输入密码的界面会自动重启，睡眠起来输入密码的时候也可能会重启。
+4. cpu的频率被限制在2.8GHz，但是CPU-S的测试中变频没问题，而且能到3.2GHz，这个问题在参考文章1也有提及，日常使用没什么感觉。
+5. wifi问题，原装的无线网卡不能驱动，无解，只能换网卡或者搞个usb网卡，我选择了后者
+6. 独显不能驱动，也无解，因为10.14之后的系统都不支持n卡了。
 
-3. cpu的频率被限制在2.8GHz，但是CPU-S的测试中变频没问题，而且能到3.2GHz，这个问题在参考文章1也有提及，日常使用没什么感觉。
-
-4. wifi问题，原装的无线网卡不能驱动，无解，只能换网卡或者搞个usb网卡，我选择了后者
-
-5. 独显不能驱动，也无解，因为10.14之后的系统都不支持n卡了。
-
-总结：上面的123基本都不影响正常使用，耳机的问题可能是我自身配置的问题，也可能是驱动本身还没完善，不过我也懒得研究了。cpu虽然被限制在了2.8GHz，但是笔记本自身4核，也基本能当mbp来用了吧，大概。
+总结：上面的1234基本都不影响正常使用，耳机的问题可能是我自身配置的问题，也可能是驱动本身还没完善，不过我也懒得研究了。cpu虽然被限制在了2.8GHz，但是笔记本自身4核，也基本能当mbp来用了吧，大概。
 
 ## 展示
 
 ### 桌面
 
-![](https://s1.ax1x.com/2020/03/30/GePq5d.png)
-
-### 系统报告
-
-![](https://s1.ax1x.com/2020/03/30/GePIKK.png)
+![main-936c2ff0-7763-11ea-b9f2-69c92269ffb0.png](https://cdn.jsdelivr.net/gh/velor2012/imageHosting/blog/5e84dda992fe9e2b6c699186/main-936c2ff0-7763-11ea-b9f2-69c92269ffb0.png)
 
 ### 耳机麦克风
 
-![](https://s1.ax1x.com/2020/03/30/GePf81.png)
+![main-da55dfb0-7763-11ea-b9f2-69c92269ffb0.png](https://cdn.jsdelivr.net/gh/velor2012/imageHosting/blog/5e84dda992fe9e2b6c699186/main-da55dfb0-7763-11ea-b9f2-69c92269ffb0.png)
 
 ### USB
 
-![](https://s1.ax1x.com/2020/03/30/GePTbD.png)
+![main-fbfa1640-7763-11ea-b9f2-69c92269ffb0.png](https://cdn.jsdelivr.net/gh/velor2012/imageHosting/blog/5e84dda992fe9e2b6c699186/main-fbfa1640-7763-11ea-b9f2-69c92269ffb0.png)
 
 ### 集显
 
-![](https://s1.ax1x.com/2020/03/30/GePbUH.png)
+![main-0e2f5780-7764-11ea-b9f2-69c92269ffb0.png](https://cdn.jsdelivr.net/gh/velor2012/imageHosting/blog/5e84dda992fe9e2b6c699186/main-0e2f5780-7764-11ea-b9f2-69c92269ffb0.png)
 
 ### 音量调节
 
-![](https://s1.ax1x.com/2020/03/30/GeifoQ.png)
+![main-1fede220-7764-11ea-b9f2-69c92269ffb0.png](https://cdn.jsdelivr.net/gh/velor2012/imageHosting/blog/5e84dda992fe9e2b6c699186/main-1fede220-7764-11ea-b9f2-69c92269ffb0.png)
 
 ### 背光调节
 
-![](https://s1.ax1x.com/2020/03/30/GeiWdg.png)
+![main-3acc1670-7764-11ea-b9f2-69c92269ffb0.png](https://cdn.jsdelivr.net/gh/velor2012/imageHosting/blog/5e84dda992fe9e2b6c699186/main-3acc1670-7764-11ea-b9f2-69c92269ffb0.png)
 
+### 更新
 
+升级15.4，参考大佬[https://github.com/fengwenhua/dell-7559-hackintosh](https://github.com/fengwenhua/dell-7559-hackintosh)的步骤即可。
+
+我升级的时候安装卡特琳娜到最后提示**启动磁盘当中无法设置Windows，提示bless工具无法设定当前的启动**
+
+重启选择之前的开机项还是能进mac系统完成后续步骤，但是安装卡特琳娜的那几个开机项还留在那里，看起来比较难受..
 
